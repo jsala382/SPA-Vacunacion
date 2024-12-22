@@ -8,14 +8,24 @@
       </div>
 
       <div class="form-group my-3">
-        <label for="filtroTexto">Filtros:</label>
+        <label for="filtroTexto">Filtros estado_vacunacion:</label>
         <input
             type="text"
             id="filtroTexto"
-            [(ngModel)]="filtroTexto"
+            [(ngModel)]="filtroEstado"
             class="form-control"
             placeholder="Ingrese un valor a filtrar"
         />
+
+        <label for="filtroTexto">Filtros vacunas:</label>
+        <input
+            type="text"
+            id="filtroTexto"
+            [(ngModel)]="filtroVacuna"
+            class="form-control"
+            placeholder="Ingrese un valor a filtrar"
+        />
+
 
         <div class="form-group my-3">
             <label for="fechaInicio">Fecha Inicio:</label>

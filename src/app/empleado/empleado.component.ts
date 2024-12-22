@@ -15,7 +15,8 @@ export class EmpleadoComponent implements OnInit {
   empleados: Empleado[] | undefined;
   usuarioAutenticado: Usuario = new Usuario();
   isAdmin: boolean = false;
-  filtroTexto: string = '';
+  filtroEstado: string = '';
+  filtroVacuna: string='';
   fechaInicio: string | null = null; // Inicializamos las fechas como null
   fechaFin: string | null = null;
 
@@ -29,14 +30,15 @@ export class EmpleadoComponent implements OnInit {
   }
 
   filtrarEmpleados(): void {
-    const filtroValor = this.filtroTexto.trim().toUpperCase(); // Convertir a mayúsculas para comparación uniforme
+    const filtroValor = this.filtroEstado.trim().toUpperCase();
+    const filtroValor1=this.filtroVacuna.trim().toUpperCase();
     const filtros: { [key: string]: string } = {};
   
     // Determinar el filtro en base al valor ingresado
     if (filtroValor === 'VACUNADO' || filtroValor === 'NO_VACUNADO') {
       filtros['estado'] = filtroValor;
-    } else if (['SPUTNIK', 'ASTRAZENECA', 'PFIZER', 'JHONSON_JHONSON'].includes(filtroValor)) {
-      filtros['tipo'] = filtroValor;
+    } else if (['SPUTNIK', 'ASTRAZENECA', 'PFIZER', 'JHONSON_JHONSON'].includes(filtroValor1)) {
+      filtros['tipo'] = filtroValor1;
     } else if (this.fechaInicio && this.fechaFin){
       const fechaInicioDate = new Date(this.fechaInicio);
       const fechaFinDate = new Date(this.fechaFin)
@@ -45,16 +47,16 @@ export class EmpleadoComponent implements OnInit {
       
     }else {
       console.error('Valor de filtro no reconocido:', filtroValor);
-      return; // Salir si no es un valor válido
+      return; 
     }
   
     console.log('Filtros generados:', filtros);
   
-    // Llamar al servicio para aplicar los filtros
+    
     this.empleadoService.filtrarEmpleados(filtros).subscribe(
       (empleados) => {
         console.log('Empleados filtrados:', empleados);
-        this.empleados = empleados; // Actualizar la lista en pantalla
+        this.empleados = empleados; 
       },
       (error) => {
         console.error('Error al filtrar empleados:', error);
